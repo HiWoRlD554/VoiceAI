@@ -10,6 +10,7 @@ import LeadUploadSection from "@/components/dashboard/LeadUploadSection";
 import KnowledgeBaseSection from "@/components/dashboard/KnowledgeBaseSection";
 import CampaignSettings from "@/components/dashboard/CampaignSettings";
 import CallResultsSection from "@/components/dashboard/CallResultsSection";
+import AuthHeader from "@/components/auth/AuthHeader";
 import { campaignStats } from "@/data/mockData";
 
 const Dashboard = () => {
@@ -17,38 +18,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-glass-border sticky top-0 z-50 backdrop-blur-xl bg-background/80">
-        <div className="container px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <Zap className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold gradient-text hidden sm:block">VoiceAI</span>
-            </Link>
-            <div className="h-6 w-px bg-glass-border hidden sm:block" />
-            <div className="hidden sm:block">
-              <h1 className="font-semibold">Campaign Dashboard</h1>
-              <p className="text-xs text-muted-foreground">Manage your AI calling campaigns</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/">
-                <Home className="w-4 h-4" />
-                <span className="hidden sm:inline">Home</span>
-              </Link>
-            </Button>
-            <div className="glass-card px-4 py-2 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm font-medium">{campaignStats.creditsRemaining.toLocaleString()}</span>
-              <span className="text-xs text-muted-foreground">credits</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <AuthHeader />
 
       <main className="container px-4 py-8">
         {/* Stats Cards */}
