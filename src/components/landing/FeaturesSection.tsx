@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { features } from "@/data/mockData";
 import { Bot, FileText, Brain, FileSpreadsheet, Mic, Sparkles } from "lucide-react";
 
 const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
@@ -10,6 +9,39 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
   Mic,
   Sparkles,
 };
+
+const features = [
+  {
+    title: "AI Voice Calling Bot",
+    description: "Natural-sounding AI agents that handle conversations like your best sales rep.",
+    icon: "Bot",
+  },
+  {
+    title: "Custom Call Scripts",
+    description: "Create tailored scripts for any industry or use case with our intuitive builder.",
+    icon: "FileText",
+  },
+  {
+    title: "Knowledge-Based Conversations",
+    description: "Upload your docs and let AI answer questions about your products and services.",
+    icon: "Brain",
+  },
+  {
+    title: "Excel Lead Upload",
+    description: "Import thousands of leads instantly from Excel or CSV files.",
+    icon: "FileSpreadsheet",
+  },
+  {
+    title: "Call Recording & Transcripts",
+    description: "Every call recorded and transcribed for quality assurance and training.",
+    icon: "Mic",
+  },
+  {
+    title: "AI Summaries & Lead Scoring",
+    description: "Instant AI-generated summaries and intelligent lead scoring after each call.",
+    icon: "Sparkles",
+  },
+];
 
 const FeaturesSection = () => {
   return (

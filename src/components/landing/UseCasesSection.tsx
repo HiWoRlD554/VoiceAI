@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useCases } from "@/data/mockData";
 import { Building2, Megaphone, TrendingUp, Users } from "lucide-react";
 
 const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
@@ -8,6 +7,29 @@ const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = 
   TrendingUp,
   Users,
 };
+
+const useCases = [
+  {
+    title: "Real Estate Agencies",
+    description: "Qualify property leads, schedule viewings, and follow up with potential buyers automatically.",
+    icon: "Building2",
+  },
+  {
+    title: "Marketing Agencies",
+    description: "Scale client outreach, conduct surveys, and nurture leads with personalized AI conversations.",
+    icon: "Megaphone",
+  },
+  {
+    title: "Sales Teams",
+    description: "Automate cold calling, qualify prospects, and book meetings while your team focuses on closing.",
+    icon: "TrendingUp",
+  },
+  {
+    title: "Lead Generation Companies",
+    description: "Process thousands of leads daily with consistent quality and instant AI-powered summaries.",
+    icon: "Users",
+  },
+];
 
 const UseCasesSection = () => {
   return (

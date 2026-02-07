@@ -1,8 +1,35 @@
 import { motion } from "framer-motion";
-import { howItWorks } from "@/data/mockData";
 import { Upload, Phone, MessageSquare, FileAudio, CheckCircle } from "lucide-react";
 
 const icons = [Upload, Phone, MessageSquare, FileAudio, CheckCircle];
+
+const howItWorks = [
+  {
+    step: 1,
+    title: "Upload Your Leads",
+    description: "Import your customer list via Excel or CSV. Our system validates and prepares your data.",
+  },
+  {
+    step: 2,
+    title: "AI Agent Calls",
+    description: "Our voice AI reaches out to each lead with natural, human-like conversations.",
+  },
+  {
+    step: 3,
+    title: "Intelligent Conversations",
+    description: "AI understands context, answers questions, and guides prospects through your offering.",
+  },
+  {
+    step: 4,
+    title: "Recording & Summary",
+    description: "Every call is recorded, transcribed, and summarized with key insights extracted.",
+  },
+  {
+    step: 5,
+    title: "Qualified Leads Delivered",
+    description: "Receive scored leads with AI summaries, ready for your sales team to close.",
+  },
+];
 
 const HowItWorksSection = () => {
   return (
@@ -33,7 +60,6 @@ const HowItWorksSection = () => {
         <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-6">
           {howItWorks.map((item, index) => {
             const Icon = icons[index];
-
             return (
               <motion.div
                 key={item.step}

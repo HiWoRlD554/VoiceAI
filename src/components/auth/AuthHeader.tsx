@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import { useAuth } from '@/contexts/AuthContext'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useState, useEffect } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,15 +8,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import { LogOut, User, Settings, CreditCard } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
-import { campaignStats } from '@/data/mockData'
+import { useAuth } from '@/contexts/AuthContext'
+import { userProfileService } from '@/lib/database/services'
 
 const AuthHeader = () => {
   const { user, signOut } = useAuth()
   const [isSigningOut, setIsSigningOut] = useState(false)
+  const [credits, setCredits] = useState(1000) // Default value
+
+  useEffect(() => {
+    const loadCredits = async () => {
+      if (user) {
+        try {
+          const userCredits = await userProfileService.getCredits(user.id)
+          setCredits(userCredits)
+        } catch (error) {
+          console.error('Failed to load credits:', error)
+        }
+      }
+    }
+
+    loadCredits()
+  }, [user])
 
   const handleSignOut = async () => {
     setIsSigningOut(true)
@@ -64,7 +80,7 @@ const AuthHeader = () => {
         <div className="glass-card px-4 py-2 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <CreditCard className="w-4 h-4 text-muted-foreground" />
-          <span className="text-sm font-medium">{campaignStats.creditsRemaining.toLocaleString()}</span>
+          <span className="text-sm font-medium">{credits.toLocaleString()}</span>
           <span className="text-xs text-muted-foreground">credits</span>
         </div>
 
