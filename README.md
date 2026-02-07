@@ -1,11 +1,16 @@
 # VoiceAI - Voice Assistant Dashboard
 
-A modern React application for managing voice AI assistants with Supabase authentication and Google OAuth integration.
+A modern React application for managing voice AI assistants with Supabase authentication and real-time data management.
 
 ## 🚀 Features
 
-- **Authentication**: Secure login with Google OAuth via Supabase
+- **Authentication**: Secure login with Google OAuth and Email/Password via Supabase
 - **Protected Routes**: Dashboard and other protected pages require authentication
+- **Real Database**: Complete Supabase integration replacing mock data
+- **Lead Management**: Excel/CSV upload with real-time preview and validation
+- **Knowledge Base**: Document upload and manual knowledge entry with AI training
+- **Campaign Settings**: Configure calling campaigns with scripts and voice settings
+- **Call Results**: Real-time call outcome tracking and analytics
 - **Modern UI**: Built with shadcn/ui components and Tailwind CSS
 - **TypeScript**: Full type safety throughout the application
 - **Responsive Design**: Mobile-first responsive layout
@@ -17,79 +22,48 @@ A modern React application for managing voice AI assistants with Supabase authen
 - **UI Framework**: shadcn/ui + Radix UI
 - **Styling**: Tailwind CSS
 - **Authentication**: Supabase Auth with Google OAuth
+- **Database**: Supabase PostgreSQL with Row Level Security
+- **Storage**: Supabase Storage for file uploads
 - **State Management**: React Context API
 - **Routing**: React Router DOM
 - **Forms**: React Hook Form + Zod validation
 - **HTTP Client**: TanStack Query
 - **Icons**: Lucide React
 
-## 📋 Prerequisites
+## 📋 Quick Start
 
-Before you begin, ensure you have the following installed:
+### 📖 **IMPORTANT**: First read the [Setup Guide](./SETUP_GUIDE.md)
+
+The complete setup guide with step-by-step instructions is available in `SETUP_GUIDE.md`. This includes:
+- Database schema setup
+- Supabase configuration
+- Environment variables
+- Authentication setup
+- Migration from mock data
+
+### Prerequisites
 
 - Node.js (v18 or higher)
 - npm or yarn
-- A Supabase project with Google OAuth configured
+- A Supabase project with authentication configured
 
-## 🚀 Quick Start
-
-### 1. Clone the Repository
+### Installation
 
 ```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
 cd VoiceAI
-```
 
-### 2. Install Dependencies
-
-```bash
+# Install dependencies
 npm install
-```
 
-### 3. Set Up Environment Variables
-
-Create a `.env.local` file in the root of your project:
-
-```bash
+# Set up environment
 cp .env.example .env.local
-```
+# Add your Supabase credentials to .env.local
 
-Add your Supabase configuration:
-
-```env
-# Supabase Configuration
-VITE_SUPABASE_URL=your_supabase_project_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-
-### 4. Configure Supabase
-
-1. **Create a Supabase Project**
-   - Go to [supabase.com](https://supabase.com)
-   - Create a new project
-   - Note your project URL and anon key from Settings > API
-
-2. **Set Up Google OAuth**
-   - In your Supabase project, go to Authentication > Providers
-   - Enable Google provider
-   - Add your Google OAuth credentials:
-     - Get credentials from [Google Cloud Console](https://console.cloud.google.com/)
-     - Create a new OAuth 2.0 Client ID
-     - Add authorized redirect URI: `https://[your-project-ref].supabase.co/auth/v1/callback`
-   - Save your Google Client ID and Client Secret in Supabase
-
-3. **Update Site URL**
-   - In Supabase Settings > Authentication, set:
-     - Site URL: `http://localhost:5173` (for development)
-     - Redirect URLs: `http://localhost:5173/**`
-
-### 5. Start the Development Server
-
-```bash
+# Start development server
 npm run dev
 ```
-
-The application will be available at `http://localhost:5173`
 
 ## 📁 Project Structure
 
@@ -97,48 +71,57 @@ The application will be available at `http://localhost:5173`
 src/
 ├── components/
 │   ├── auth/           # Authentication components
-│   │   └── ProtectedRoute.tsx
 │   ├── dashboard/      # Dashboard components
-│   ├── landing/        # Landing page components
 │   └── ui/            # shadcn/ui components
 ├── contexts/
 │   └── AuthContext.tsx # Authentication context
 ├── lib/
+│   ├── database/
+│   │   ├── types.ts    # Database type definitions
+│   │   └── services.ts # Supabase CRUD operations
 │   └── supabase.ts    # Supabase client configuration
 ├── pages/
 │   ├── Dashboard.tsx   # Protected dashboard page
-│   ├── Index.tsx       # Landing page
 │   ├── Login.tsx       # Login page
-│   └── NotFound.tsx    # 404 page
-└── ...
+│   ├── Profile.tsx     # User profile page
+│   └── Index.tsx       # Landing page
+└── database/
+    └── schema.sql       # Complete database schema
 ```
 
 ## 🔐 Authentication Flow
 
-1. **Unauthenticated users** are redirected to `/login`
-2. **Google OAuth** authentication via Supabase
-3. **Protected routes** check authentication status
-4. **Session persistence** with automatic token refresh
-5. **Sign out** clears local session and redirects to login
+1. **User Registration/Login**: Email/password or Google OAuth
+2. **Session Management**: Automatic token refresh and persistence
+3. **Protected Routes**: Automatic redirect to login for unauthenticated users
+4. **Profile Management**: User settings and preferences
 
-## 🛡️ Protected Routes
+## 🗄️ Database Features
 
-Routes wrapped with `ProtectedRoute` component require authentication:
+### Real Data Management
+- **Leads**: Excel/CSV import with validation and preview
+- **Knowledge Base**: Document upload and manual entries
+- **Campaigns**: Configuration and management
+- **Call Results**: Real-time outcome tracking
+- **User Profiles**: Credits and subscription management
 
-- `/dashboard` - Main dashboard (protected)
+### Security
+- **Row Level Security**: Users can only access their own data
+- **Storage Policies**: Secure file upload/download
+- **Input Validation**: Client and server-side validation
 
-Public routes:
-- `/` - Landing page
-- `/login` - Login page
+## 🎨 UI Features
 
-## 🎨 UI Components
+### Authentication
+- **Login Page**: Tabbed interface with email and Google options
+- **Profile Dropdown**: User menu with avatar and logout
+- **Theme Matching**: Consistent design across all pages
 
-The application uses shadcn/ui components for consistent design:
-
-- Cards, buttons, forms, dialogs
-- Toast notifications (Sonner)
-- Loading states and spinners
-- Responsive layouts
+### Dashboard Components
+- **Lead Upload**: Drag-and-drop interface with file validation
+- **Knowledge Base**: Document management and manual entry
+- **Campaign Settings**: Script and voice configuration
+- **Call Results**: Analytics and outcome display
 
 ## 📦 Available Scripts
 
@@ -156,7 +139,7 @@ npm run preview
 npm test
 
 # Run tests in watch mode
-npm run test:watch
+npm test:watch
 
 # Lint code
 npm run lint
@@ -164,42 +147,64 @@ npm run lint
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### Environment Setup
+1. **Supabase Project**: Create and configure database
+2. **Authentication**: Set up Google OAuth and email providers
+3. **Storage**: Configure file upload buckets
+4. **Environment Variables**: Add Supabase credentials
 
-1. Connect your GitHub repository to Vercel
-2. Add environment variables in Vercel dashboard:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-3. Deploy automatically on push to main branch
+### Platform Deployment
+- **Vercel** (Recommended): Connect repository and add environment variables
+- **Netlify**: Configure build settings and environment variables
+- **AWS Amplify**: Set up static site hosting
 
-### Other Platforms
+## 📚 Documentation
 
-The app can be deployed to any platform that supports static sites:
+- **[Setup Guide](./SETUP_GUIDE.md)**: Complete setup and configuration instructions
+- **[Database Schema](./database/schema.sql)**: Complete SQL schema
+- **[Type Definitions](./src/lib/database/types.ts)**: TypeScript interfaces
+- **[Service Layer](./src/lib/database/services.ts)**: CRUD operations
 
-- Netlify
-- AWS Amplify
-- GitHub Pages
-- Railway
-
-## 🔧 Development Tips
+## 🔧 Development
 
 ### Environment Variables
+```env
+# Required
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-- Use `.env.local` for local development
-- Variables must start with `VITE_` to be exposed to the client
-- Never commit `.env.local` to version control
+### Code Style
+- TypeScript strict mode enabled
+- ESLint configuration for code quality
+- Prettier for consistent formatting
+- Component-based architecture
 
-### Authentication Debugging
+## 🆘 Troubleshooting
 
-- Check browser console for auth errors
-- Verify Supabase configuration in dashboard
+### Common Issues
+
+**Authentication Problems**
+- Verify Supabase configuration in `.env.local`
+- Check Google OAuth settings in Supabase dashboard
 - Ensure redirect URLs match exactly
 
-### Styling
+**Database Connection**
+- Confirm schema was executed in Supabase SQL Editor
+- Check Row Level Security policies
+- Verify user permissions
 
-- Use Tailwind CSS classes for styling
-- Follow shadcn/ui patterns for consistency
-- Components are located in `src/components/ui/`
+**File Upload Issues**
+- Check file size limits (25MB for documents, 10MB for leads)
+- Validate file formats (PDF, DOC, DOCX, TXT, XLS, XLSX, CSV)
+- Ensure storage bucket exists in Supabase
+
+### Getting Help
+
+1. **Check Console**: Browser console for JavaScript errors
+2. **Network Tab**: Verify API calls to Supabase
+3. **Supabase Logs**: Check authentication and database logs
+4. **Setup Guide**: Review [SETUP_GUIDE.md](./SETUP_GUIDE.md) for detailed steps
 
 ## 🤝 Contributing
 
@@ -209,31 +214,30 @@ The app can be deployed to any platform that supports static sites:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### Development Guidelines
+- Follow TypeScript best practices
+- Use existing UI components from shadcn/ui
+- Test with real Supabase data
+- Update documentation for new features
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Troubleshooting
+---
 
-### Common Issues
+## 🎯 Quick Setup Checklist
 
-**Google OAuth not working:**
-- Verify Google OAuth credentials in Supabase
-- Check redirect URLs in both Google Console and Supabase
-- Ensure Site URL is correctly set in Supabase
+- [ ] Read [Setup Guide](./SETUP_GUIDE.md) completely
+- [ ] Create Supabase project
+- [ ] Execute database schema
+- [ ] Configure authentication providers
+- [ ] Set up environment variables
+- [ ] Install dependencies
+- [ ] Test authentication flow
+- [ ] Verify file uploads
+- [ ] Check database operations
 
-**Build errors:**
-- Run `npm install` to ensure all dependencies are installed
-- Check TypeScript configuration
-- Verify all environment variables are set
+**Ready for Development!** 🚀
 
-**Authentication state issues:**
-- Clear browser localStorage and cookies
-- Check network tab for Supabase API calls
-- Verify environment variables are correctly loaded
-
-### Getting Help
-
-- Check the [Supabase Documentation](https://supabase.com/docs)
-- Review the [React Router Documentation](https://reactrouter.com/)
-- Open an issue in the repository for specific problems
+For detailed setup instructions, database schema, and implementation details, please refer to the [Setup Guide](./SETUP_GUIDE.md).
